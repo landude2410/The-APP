@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <title>Download</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+</head>
+<body>
+  <h1>Payment Successful ✅</h1>
+  <p>Your download will begin automatically.</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get("session_id");
+
+    fetch(`/api/verify-download?session_id=${sessionId}`)
+      .then(res => res.blob())
+      .then(blob => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "resume-pack.zip";
+        a.click();
+      });
+  </script>
+</body>
+</html>
